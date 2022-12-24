@@ -9,18 +9,18 @@ export interface updateUIData {
 }
 
 export function Main(updateUI: (data: updateUIData) => void): (e: globalThis.KeyboardEvent) => void {
+    // by the way, this function ends up being called twice because useEffect is weird
+    // it just means that the first call is completely disregarded automatically (because the rest of the program forgets it existed)
+    // and it ends up working for the second call; so, don't freak out if there is two prints. 
+    // the return statment should only be called once though.
     // set up game
     let gameWorld = new World();
     let gamePlayer = new Player();
     gameWorld.addEntity(gamePlayer, 1, 1);
-
-
-
     updateUI({worldData: gameWorld.toStringArray()});
     return (e: globalThis.KeyboardEvent) => {
         let dir = inputToVector(e);
         gameWorld.moveEntityR(gamePlayer, dir.x, dir.y);
-        console.log(gameWorld.toStringArray());
         updateUI({worldData: gameWorld.toStringArray()});
     }; 
 }
