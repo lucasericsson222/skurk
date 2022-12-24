@@ -1,5 +1,5 @@
 import { Entity, ActiveEntity, Empty } from "./Entity";
-
+import { Vector } from "./Vector";
 
 const N = 7;
 const M = 18;
@@ -18,19 +18,13 @@ export class World {
         this.data = [];
         
         // initialize all data in world to empty entity that prints a space
-        for(let i = 0; i < N; i++) {
+        for(let i = 0; i < M; i++) {
             let inner_array: Entity [] = [];
-            for(let j = 0; j < M; j++) {
+            for(let j = 0; j < N; j++) {
                 inner_array.push(new Empty());
             }
             this.data.push(inner_array);
         }
-    }
-    moveConstructor(other: World): World {
-        let newworld = new World();
-        newworld.data = other.data;
-        newworld.activeData = other.activeData;
-        return newworld;
     }
     /*
     toStringArray(): string []
@@ -50,7 +44,7 @@ export class World {
         for(let i = 0; i < N; i++) { // row number
             for(let j = 0; j < M; j++) { // column number
                 for(let k = 0; k < W; k++) { // level number
-                    let listValues = this.data[i][j].display();
+                    let listValues = this.data[j][i].display();
                                   
                     if(listValues.length > k ) {
                         output[k] += listValues[k];
@@ -68,7 +62,7 @@ export class World {
 
         return output;
     }
-    addEntity(obj: Entity, x:number, y:number): World {
+    addEntity(obj: Entity, x:number, y:number): void {
         if(!(this.data[x][y] instanceof Empty)) {
             throw new Error("There is already a Entity there.");
         }
@@ -77,7 +71,20 @@ export class World {
         }
         this.data[x][y] = obj;
         obj.setPosition(x,y);
-        return this.moveConstructor(this);
     }
-
+    removeEntity(obj: Entity): void {
+        let oPos = obj.getPosition();
+        this.data[oPos.x][oPos.y] = new Empty();
+        this.data[oPos.x][oPos.y].setPosition(oPos.x, oPos.y);
+    }
+    moveEntity(obj: Entity, x:number, y:number): void{
+        // note no error checking for whether the entity could be added at the location
+        this.removeEntity(obj);
+        this.addEntity(obj, x, y);
+    }
+    moveEntityR(obj: Entity, x_rel:number, y_rel: number): void {
+        this.removeEntity(obj);
+        let newPos: Vector = obj.getPosition().add(new Vector(x_rel, y_rel));
+        this.addEntity(obj, newPos.x, newPos.y);
+    }
 }

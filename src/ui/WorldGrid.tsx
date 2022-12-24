@@ -1,11 +1,11 @@
-
+import "./WorldGrid.css";
 interface WorldGridProps {
     data: string [];
 }
 
 function WorldGrid({data}: WorldGridProps) {
     return (
-        <>
+        <div className="world-grid">
             {data.map(
                 (x:string, index:number) => 
                     <p key={index} id={"level" + index.toString()}>
@@ -16,7 +16,7 @@ function WorldGrid({data}: WorldGridProps) {
                         )}
                     </p>
             )}
-        </>
+        </div>
     );
 }
 
