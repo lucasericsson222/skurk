@@ -15,11 +15,10 @@ function App() {
 
 
     let handleInput = Main(updateUI);
+
     function helper(e: globalThis.KeyboardEvent) {
-      console.log(e);
       handleInput(e);
     }
-
 
     document.addEventListener("keydown", helper, false);
     return () => {

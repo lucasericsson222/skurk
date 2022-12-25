@@ -1,3 +1,7 @@
-.world-grid {
-    font-family: monospace;
+.world-grid > p {
+    position: absolute;
+    font-size: 2rem;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
 }

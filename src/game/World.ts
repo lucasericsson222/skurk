@@ -6,7 +6,7 @@ const M = 18;
 const W = 5;
 
 export class World {
-    private data: Entity[][];
+    private data: Entity[][][];
     private activeData: ActiveEntity[] = [];
     static get N() {
         return N;
@@ -19,9 +19,9 @@ export class World {
         
         // initialize all data in world to empty entity that prints a space
         for(let i = 0; i < M; i++) {
-            let inner_array: Entity [] = [];
+            let inner_array: Entity [][] = [];
             for(let j = 0; j < N; j++) {
-                inner_array.push(new Empty());
+                inner_array.push([]);
             }
             this.data.push(inner_array);
         }
@@ -34,7 +34,12 @@ export class World {
     return: an array containing a string for each level to display
     */
     toStringArray():string [] { 
-        // output is an array containing each levels html
+        function displayTile(tile: Entity[]): string[] {
+            if (tile.length > 0) {
+                return tile[0].display();
+            }
+            return new Empty().display();
+        }
         let output: string[] = new Array(W);
         for(let k = 0; k < W; k++) {
             output[k] = "";
@@ -44,8 +49,9 @@ export class World {
         for(let i = 0; i < N; i++) { // row number
             for(let j = 0; j < M; j++) { // column number
                 for(let k = 0; k < W; k++) { // level number
-                    let listValues = this.data[j][i].display();
-                                  
+                    let currentTile = this.data[j][i];
+                    let listValues = displayTile(currentTile);
+                    
                     if(listValues.length > k ) {
                         output[k] += listValues[k];
                     } else {
@@ -58,24 +64,21 @@ export class World {
                 output[k] += "<br/>";
             }
         }
-    
-
         return output;
     }
     addEntity(obj: Entity, x:number, y:number): void {
-        if(!(this.data[x][y] instanceof Empty)) {
-            throw new Error("There is already a Entity there.");
-        }
         if(obj instanceof ActiveEntity) {
             this.activeData.push(obj);
         }
-        this.data[x][y] = obj;
+        this.data[x][y].push(obj);
         obj.setPosition(x,y);
     }
-    removeEntity(obj: Entity): void {
+    removeEntity(obj: Entity|ActiveEntity): void {
         let oPos = obj.getPosition();
-        this.data[oPos.x][oPos.y] = new Empty();
-        this.data[oPos.x][oPos.y].setPosition(oPos.x, oPos.y);
+        if(obj instanceof ActiveEntity) {
+            this.activeData = this.activeData.filter((thing) => {return thing !== obj;});
+        }
+        this.data[oPos.x][oPos.y] = this.data[oPos.x][oPos.y].filter((thing)=> {return thing !== obj;});
     }
     moveEntity(obj: Entity, x:number, y:number): void{
         // note no error checking for whether the entity could be added at the location
@@ -83,8 +86,7 @@ export class World {
         this.addEntity(obj, x, y);
     }
     moveEntityR(obj: Entity, x_rel:number, y_rel: number): void {
-        this.removeEntity(obj);
         let newPos: Vector = obj.getPosition().add(new Vector(x_rel, y_rel));
-        this.addEntity(obj, newPos.x, newPos.y);
+        this.moveEntity(obj, newPos.x, newPos.y);
     }
 }
