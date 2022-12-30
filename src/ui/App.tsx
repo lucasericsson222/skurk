@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import WorldGrid from './WorldGrid';
 import { Main, updateUIData } from '../game/Main';
+import { Pixel } from '../game/Pixel';
 import './App.css';
 
 
 
 function App() {
-  let [worldData, setWorldData] = useState([""]);
+  let [worldData, setWorldData] = useState<Pixel[][]>([]);
   
   useEffect(() => {
     function updateUI(data: updateUIData) {

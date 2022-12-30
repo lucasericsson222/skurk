@@ -1,6 +1,7 @@
 import { Entity, ActiveEntity, Empty } from "./Entity";
 import { Vector } from "./Vector";
-
+import { Color } from "./Color";
+import { Pixel } from "./Pixel";
 const N = 7;
 const M = 18;
 const W = 5;
@@ -33,7 +34,7 @@ export class World {
         line breaks are represented with <br/>
     return: an array containing a string for each level to display
     */
-    toStringArray():string [] { 
+    /*oldtoStringArray():string [] { 
         function displayTile(tile: Entity[]): string[] {
             if (tile.length > 0) {
                 return tile[0].display();
@@ -64,6 +65,36 @@ export class World {
                 output[k] += "<br/>";
             }
         }
+        return output;
+    }*/
+    toStringArray():Pixel[][] { // this should be an array of length 5 (for each layer) which an array of string color pairs in each
+        function displayTile(tile: Entity[]): Pixel[] {
+            if (tile.length > 0) {
+                return tile[0].display();
+            }
+            return new Empty().display();
+        }
+        let output: Pixel[][] = new Array(W);
+        for(let k = 0; k < W; k++) {
+            output[k] = [];
+        }
+        for(let i = 0; i < N; i++) { // row number
+            for(let j = 0; j < M; j++) { // column number
+                let tile = this.data[j][i];
+                let pixelArray = displayTile(tile);
+                for(let k = 0; k < W; k++) {
+                    if (k < pixelArray.length) {
+                        output[k].push(pixelArray[k]);
+                    } else {
+                        output[k].push(Pixel.Empty)
+                    }
+                }
+            }
+            for(let k = 0; k < W; k++) {
+                output[k].push(Pixel.NewLine);
+            }
+        }
+        
         return output;
     }
     addEntity(obj: Entity, x:number, y:number): void {

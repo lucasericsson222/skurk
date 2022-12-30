@@ -1,5 +1,6 @@
 import { Vector } from "./Vector";
-
+import { Color } from "./Color";
+import { Pixel } from "./Pixel";
 export abstract class Entity {
     private position: Vector= new Vector(0,0);
     setPosition(x: number, y: number) {
@@ -9,11 +10,11 @@ export abstract class Entity {
     getPosition(): Vector {
         return this.position;
     }
-    abstract display(): string[];
+    abstract display(): Pixel[];
 }
 export class Empty extends Entity {
-    display(): string[] {
-        return ["."];
+    display(): Pixel[] {
+        return [new Pixel(".",Color.White)];
     }
 }
 export abstract class ActiveEntity extends Entity {

@@ -1,10 +1,11 @@
 import { ActiveEntity } from "./Entity";
-
+import { Color } from "./Color";
+import { Pixel } from "./Pixel";
 export class Player extends ActiveEntity {
     action() {
 
     }
-    display() {
-        return ["@"];
+    display(): Pixel[]{
+        return [new Pixel("@" ,Color.Red)];
     }
 }

@@ -3,9 +3,9 @@
 import { World } from "./World";
 import { Player } from "./Player";
 import { Vector } from "./Vector";
-
+import { Pixel } from "./Pixel";
 export interface updateUIData {
-    worldData: string [];
+    worldData: Pixel[][];
 }
 
 export function Main(updateUI: (data: updateUIData) => void): (e: globalThis.KeyboardEvent) => void {

@@ -1,6 +1,7 @@
 import "./WorldGrid.css";
+import { Pixel } from "../game/Pixel";
 interface WorldGridProps {
-    data: string [];
+    data: Pixel[][];
 }
 /*
 p#first{
@@ -49,8 +50,8 @@ function WorldGrid({data}: WorldGridProps) {
     }
     return (
         <div className="world-grid"> 
-        {data.map((x:string, index:number) => 
-            <p 
+        {data.map((x: Pixel[], index:number) => 
+            (<p 
                 key={index} 
                 id={"level" + index.toString()}
                 style={{
@@ -61,12 +62,14 @@ function WorldGrid({data}: WorldGridProps) {
                     //color: `rgb(${brightness(index)},${brightness(index)},${brightness(index)})`
                 }}
             >
-            {x.split("<br/>").map((x:string, index:number) => 
-            <>
-                {x}<br/>
-            </>
-            )}
-            </p>
+                {
+                    x.map((pix) => (
+                        (pix.symbol === Pixel.NewLine.symbol)?
+                            <br/>
+                            :<span style={{color: pix.color.toRGB()}}>{pix.symbol}</span>
+                    ))
+                }
+            </p>)
         )}
         </div>
     );
