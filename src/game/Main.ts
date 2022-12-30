@@ -4,6 +4,7 @@ import { World } from "./World";
 import { Player } from "./Player";
 import { Vector } from "./Vector";
 import { Pixel } from "./Pixel";
+import { Wall } from "./Wall";
 export interface updateUIData {
     worldData: Pixel[][];
 }
@@ -17,6 +18,12 @@ export function Main(updateUI: (data: updateUIData) => void): (e: globalThis.Key
     let gameWorld = new World();
     let gamePlayer = new Player();
     gameWorld.addEntity(gamePlayer, 1, 1);
+    gameWorld.addEntity(new Wall(), 2,2);
+    gameWorld.addEntity(new Wall(), 2,3);
+    gameWorld.addEntity(new Wall(), 2,4);
+    gameWorld.addEntity(new Wall(), 2,5);
+    gameWorld.addEntity(new Wall(), 2,6);
+    gameWorld.addEntity(new Wall(), 3,6);
     updateUI({worldData: gameWorld.toStringArray()});
     return (e: globalThis.KeyboardEvent) => {
         let dir = inputToVector(e);

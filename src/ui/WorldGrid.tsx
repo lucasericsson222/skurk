@@ -2,6 +2,7 @@ import "./WorldGrid.css";
 import { Pixel } from "../game/Pixel";
 interface WorldGridProps {
     data: Pixel[][];
+    tick: number;
 }
 /*
 p#first{
@@ -38,16 +39,16 @@ p#first{
             color:rgb(255, 255, 255);
         }
 */
-function WorldGrid({data}: WorldGridProps) {
-    let numberOfIndex = 5;
-    let numLines = 7;
-    let numCharacters = 18;
+function WorldGrid({data, tick}: WorldGridProps) {
+    //let numberOfIndex = 5;
+    //let numLines = 7;
+    //let numCharacters = 18;
     let xTightness = 0.025;
-    let halfLineExtraWidth = (numCharacters * 0.1)/2;
-    let halfLineExtraHeight = (0.2 * numLines )/2; 
-    function brightness(index: number) {
+    //let halfLineExtraWidth = (numCharacters * 0.1)/2;
+    //let halfLineExtraHeight = (0.2 * numLines )/2; 
+    /*function brightness(index: number) {
         return (index + 1) / (numberOfIndex + 1) * 255;
-    }
+    }*/
     return (
         <div className="world-grid"> 
         {data.map((x: Pixel[], index:number) => 
@@ -63,9 +64,11 @@ function WorldGrid({data}: WorldGridProps) {
                 }}
             >
                 {
-                    x.map((pix) => (
+                    x.map((pix)=> {pix.pickFrame(tick);return pix;}).map((pix) => (
                         (pix.symbol === Pixel.NewLine.symbol)?
                             <br/>
+                            :(pix.symbol === Pixel.Empty.symbol)?
+                                <>&nbsp;</>
                             :<span style={{color: pix.color.toRGB()}}>{pix.symbol}</span>
                     ))
                 }
