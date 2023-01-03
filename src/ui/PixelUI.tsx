@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { Color } from "../game/Color";
+
 interface PixelUIProps {
     symbol: string;
     color: Color;
@@ -21,7 +22,7 @@ const colorShift = (Color1: Color, Color2: Color) => keyframes`
 
 
 const PixelStyle = styled.span`
-    animation: ${(props: PixelStyleProps) => colorShift(props.color1, props.color2)} 1s alternate infinite;
+    animation: ${(props: PixelStyleProps) => colorShift(props.color1, props.color2)} 0.5s alternate infinite;
 `
 
 
@@ -29,7 +30,7 @@ const PixelStyle = styled.span`
 function PixelUI ({symbol, color, tick}: PixelUIProps) {
 
     return (
-        <PixelStyle color1={color} color2={color.next}>
+        <PixelStyle color1={color} color2={color.next.next}>
             {symbol}
         </PixelStyle>
     );

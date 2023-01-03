@@ -1,6 +1,7 @@
 import "./WorldGrid.css";
 import { Pixel } from "../game/Pixel";
 import { Color } from "../game/Color";
+import PixelUI from "./PixelUI";
 interface WorldGridProps {
     data: Pixel[][];
     tick: number;
@@ -39,12 +40,7 @@ function WorldGrid({data, tick}: WorldGridProps) {
                             /*then*/<>&nbsp;</>
                         /*elif*/:(pix.color.length === 1)?
                             <span style={{color:(()=> {return pix.color.toRGB();})()}}>{pix.symbol}</span>
-                            :<span style={{
-                                color: ((color: Color): string => {
-                                    return color.getAtIndex(tick).toRGB();
-                                })(pix.color),
-                                transition: "color 1s"
-                            }}>{pix.symbol}</span>
+                            :<PixelUI symbol={pix.symbol} color={pix.color} tick={tick}></PixelUI>
                     ))
                 }
             </p>)
