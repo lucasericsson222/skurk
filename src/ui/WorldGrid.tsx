@@ -22,34 +22,40 @@ function WorldGrid({data, tick}: WorldGridProps) {
     return (
         <div className="world-grid"> 
         {data.map((x: Pixel[][], index:number) => 
-            (<p 
+            (<div 
                 key={index} 
                 id={"level" + index.toString()}
                 style={{
-                    letterSpacing: `${0.1 + xTightness*index}rem`,
+                    display: "grid",
+                    position: "absolute",
+                    gap: `${index/ 20}rem`,
+                    fontSize: `3rem`,
+                    top: `50%`,
+                    left: `50%`,
+                    transform: `translate(-50%, -50%)`
+                    //letterSpacing: `${0.1 + xTightness*index}rem`,
                     //paddingLeft: `${halfLineExtraWidth * (numberOfIndex - index) / numberOfIndex}rem`,
-                    lineHeight: `${2.3 + 0.05 * index}rem`,
+                    //lineHeight: `${2.3 + 0.05 * index}rem`,
                     //paddingTop: `${halfLineExtraHeight * (numberOfIndex - index) / numberOfIndex}rem`,
                     //color: `rgb(${brightness(index)},${brightness(index)},${brightness(index)})`
                 }}
             >
                 {
-                    x.map((pix) => (
-                        <span style={{ }}>{pix.map((p, index) => {
+                    x.map((pix, i) => {
+                        let j = 1;
+                        return pix.map((p, index) => {
+                            console.log(i)
                             let hide = (index !== tick % pix.length);
-                            return <span style={{display: hide?"none":"inline"}}>
-                            {/*if*/(p.symbol === Pixel.NewLine.symbol)?
-                                /*then*/<br/>
-                            /*elif*/:(p.symbol === Pixel.Empty.symbol)?
+                            return <span style={{opacity: hide?0:'100%', gridColumn: i % 18 + 1, gridRow: Math.floor( i / 18 + 1) }}>
+                            {(p.symbol === Pixel.Empty.symbol)?
                                 /*then*/<>&nbsp;</>
                             /*elif*/:(p.color.length === 1)?
                                 <span style={{color:(()=> {return p.color.toRGB();})()}}>{p.symbol}</span>
                                 :<PixelUI symbol={p.symbol} color={p.color} tick={tick}></PixelUI>}
                             </span>;
-                        })}</span>)
-                    )
+                        })})
                 }
-            </p>)
+            </div>)
         )}
         </div>
     );

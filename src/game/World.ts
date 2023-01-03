@@ -65,9 +65,6 @@ export class World {
                     }
                 }
             }
-            for(let k = 0; k < W; k++) {
-                output[k].push([Pixel.NewLine]);
-            }
         }
         
         return output;
