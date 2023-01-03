@@ -7,7 +7,7 @@ import './App.css';
 
 
 function App() {
-  let [worldData, setWorldData] = useState<Pixel[][]>([]);
+  let [worldData, setWorldData] = useState<Pixel[][][]>([]);
   let [tick, setTick] = useState<number>(0);
 
   

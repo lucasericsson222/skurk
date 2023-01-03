@@ -7,7 +7,7 @@ import { Pixel } from "./Pixel";
 import { Wall } from "./Wall";
 import { Water } from "./Water";
 export interface updateUIData {
-    worldData: Pixel[][];
+    worldData: Pixel[][][];
 }
 
 export function Main(updateUI: (data: updateUIData) => void): (e: globalThis.KeyboardEvent) => void {

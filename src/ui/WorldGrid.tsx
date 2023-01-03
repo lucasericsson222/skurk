@@ -2,8 +2,9 @@ import "./WorldGrid.css";
 import { Pixel } from "../game/Pixel";
 import { Color } from "../game/Color";
 import PixelUI from "./PixelUI";
+import { relative } from "path";
 interface WorldGridProps {
-    data: Pixel[][];
+    data: Pixel[][][];
     tick: number;
 }
 
@@ -20,7 +21,7 @@ function WorldGrid({data, tick}: WorldGridProps) {
     
     return (
         <div className="world-grid"> 
-        {data.map((x: Pixel[], index:number) => 
+        {data.map((x: Pixel[][], index:number) => 
             (<p 
                 key={index} 
                 id={"level" + index.toString()}
@@ -33,15 +34,20 @@ function WorldGrid({data, tick}: WorldGridProps) {
                 }}
             >
                 {
-                    x.map((pix)=> {pix.pickFrame(tick);return pix;}).map((pix) => (
-                        /*if*/(pix.symbol === Pixel.NewLine.symbol)?
-                            /*then*/<br/>
-                        /*elif*/:(pix.symbol === Pixel.Empty.symbol)?
-                            /*then*/<>&nbsp;</>
-                        /*elif*/:(pix.color.length === 1)?
-                            <span style={{color:(()=> {return pix.color.toRGB();})()}}>{pix.symbol}</span>
-                            :<PixelUI symbol={pix.symbol} color={pix.color} tick={tick}></PixelUI>
-                    ))
+                    x.map((pix) => (
+                        <span style={{ }}>{pix.map((p, index) => {
+                            let hide = (index !== tick % pix.length);
+                            return <span style={{display: hide?"none":"inline"}}>
+                            {/*if*/(p.symbol === Pixel.NewLine.symbol)?
+                                /*then*/<br/>
+                            /*elif*/:(p.symbol === Pixel.Empty.symbol)?
+                                /*then*/<>&nbsp;</>
+                            /*elif*/:(p.color.length === 1)?
+                                <span style={{color:(()=> {return p.color.toRGB();})()}}>{p.symbol}</span>
+                                :<PixelUI symbol={p.symbol} color={p.color} tick={tick}></PixelUI>}
+                            </span>;
+                        })}</span>)
+                    )
                 }
             </p>)
         )}

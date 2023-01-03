@@ -26,25 +26,30 @@ export class World {
             this.data.push(inner_array);
         }
     }
-    toStringArray():Pixel[][] { // this should be an array of length 5 (for each layer) which an array of string color pairs in each
-        function displayTile(tile: Entity[]): Pixel[] {
+    toStringArray():Pixel[][][] { // this should be an array of length 5 (for each layer) which an array of string color pairs in each
+        function displayTile(tile: Entity[]): Pixel[][] {
             
-            if (tile.length > 0) {
-                let output = tile[0].display();
-                for(let pixelId in output) {
-                    for(let i = 1; i< tile.length; i++ ) {
+            if (tile.length > 0) { // if there is something in the tile
+                
+                let output = tile[0].display().map((val) => [val]); // by default display the first thing
+                while(output.length < W) {
+                    output.push([Pixel.Empty]);
+                }
+                for(let pixelId = 0; pixelId < W; pixelId++ ) { // for each layer 
+                    for(let i = 1; i < tile.length; i++ ) { // loop through all the rest of the entities on tile
                         let pixelToAdd = Pixel.Empty;
-                        if (tile[i].display().length > Number(pixelId)) {
+                        if (tile[i].display().length > pixelId) {
                             pixelToAdd = tile[i].display()[pixelId];
                         }
-                        output[pixelId].addFrame(pixelToAdd.symbol, pixelToAdd.color);
+                        output[pixelId].push(pixelToAdd);
                     }
                 }
+                
                 return output;
             }
-            return new Empty().display();
+            return [new Empty().display()];
         }
-        let output: Pixel[][] = new Array(W);
+        let output: Pixel[][][] = new Array(W);
         for(let k = 0; k < W; k++) {
             output[k] = [];
         }
@@ -56,12 +61,12 @@ export class World {
                     if (k < pixelArray.length) {
                         output[k].push(pixelArray[k]);
                     } else {
-                        output[k].push(Pixel.Empty)
+                        output[k].push([Pixel.Empty]);
                     }
                 }
             }
             for(let k = 0; k < W; k++) {
-                output[k].push(Pixel.NewLine);
+                output[k].push([Pixel.NewLine]);
             }
         }
         
