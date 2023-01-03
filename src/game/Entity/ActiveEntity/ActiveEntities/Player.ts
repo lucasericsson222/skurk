@@ -1,6 +1,6 @@
-import { ActiveEntity } from "./Entity";
-import { Color } from "./Color";
-import { Pixel } from "./Pixel";
+import { ActiveEntity } from "../../Entity";
+import { Color } from "../../../Types/Color";
+import { Pixel } from "../../../Types/Pixel";
 export class Player extends ActiveEntity {
     action() {
 

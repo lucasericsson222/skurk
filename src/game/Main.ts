@@ -1,11 +1,11 @@
 // this file should remain at the top level of game, as it is the entry point
 // other includes may be moved though
 import { World } from "./World";
-import { Player } from "./Player";
-import { Vector } from "./Vector";
-import { Pixel } from "./Pixel";
-import { Wall } from "./Wall";
-import { Water } from "./Water";
+import { Player } from "./Entity/ActiveEntity/ActiveEntities/Player";
+import { Vector } from "./Types/Vector";
+import { Pixel } from "./Types/Pixel";
+import { Wall } from "./Entity/Entities/Wall";
+import { Water } from "./Entity/Entities/Water";
 export interface updateUIData {
     worldData: Pixel[][][];
 }

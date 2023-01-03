@@ -1,6 +1,6 @@
-import { Entity } from "./Entity"
-import { Pixel } from "./Pixel"
-import { Color } from "./Color"
+import { Entity } from "../Entity"
+import { Pixel } from "../../Types/Pixel"
+import { Color } from "../../Types/Color"
 export class Wall extends Entity {
     display(): Pixel[] { 
         // we can do some more complicated code here later

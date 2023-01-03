@@ -1,6 +1,6 @@
-import { Entity, ActiveEntity, Empty } from "./Entity";
-import { Vector } from "./Vector";
-import { Pixel } from "./Pixel";
+import { Entity, ActiveEntity, Empty } from "./Entity/Entity";
+import { Vector } from "./Types/Vector";
+import { Pixel } from "./Types/Pixel";
 const N = 7;
 const M = 18;
 const W = 5;

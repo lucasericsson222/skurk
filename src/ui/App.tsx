@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import WorldGrid from './WorldGrid';
-import { Main, updateUIData } from '../game/Main';
-import { Pixel } from '../game/Pixel';
+import WorldGrid from './WorldGrid/WorldGrid';
+import { Main, updateUIData } from '../game/Main'; // maybe move this import to a different place
+import { Pixel } from '../game/Types/Pixel'; // same with this one (since it is reaching upwards with ..)
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
@@ -18,8 +18,6 @@ const GlobalStyle = createGlobalStyle`
 function App() {
     let [worldData, setWorldData] = useState<Pixel[][][]>([]);
     let [tick, setTick] = useState<number>(0);
-
-  
 
     useEffect(() => {
         function updateUI(data: updateUIData) {

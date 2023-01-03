@@ -1,4 +1,4 @@
-import { Pixel } from "../game/Pixel";
+import { Pixel } from "../../game/Types/Pixel";
 import PixelUI from "./PixelUI";
 import styled from "styled-components";
 interface WorldGridProps {

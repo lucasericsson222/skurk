@@ -1,6 +1,6 @@
-import { Vector } from "./Vector";
-import { Color } from "./Color";
-import { Pixel } from "./Pixel";
+import { Vector } from "../Types/Vector";
+import { Color } from "../Types/Color";
+import { Pixel } from "../Types/Pixel";
 
 type Gradient = Color[];
 

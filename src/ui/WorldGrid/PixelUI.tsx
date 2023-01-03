@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { Color } from "../game/Color";
+import { Color } from "../../game/Types/Color";
 
 const colorShift = (Color1: Color, Color2: Color) => keyframes`
     from {
