@@ -1,44 +1,11 @@
 import "./WorldGrid.css";
 import { Pixel } from "../game/Pixel";
+import { Color } from "../game/Color";
 interface WorldGridProps {
     data: Pixel[][];
     tick: number;
 }
-/*
-p#first{
-            letter-spacing: 0.1rem;
-            padding-left: 0.9rem;
-            line-height:2.3rem;
-            padding-top: 0.7rem;
-            color: rgb(72, 72, 72);
-        }
-        p#second{
-            letter-spacing: 0.125rem;
-            padding-left: 0.675rem;
-            line-height: 2.35rem;
-            padding-top: 0.525rem;
-            color: rgb(137, 137, 137);
-        }
-        p#third{
-            letter-spacing:0.15rem;
-            padding-left: 0.45rem;
-            line-height: 2.4rem;
-            padding-top: 0.35rem;
-            color: rgb(148, 148, 148)
-        }
-        p#fourth{
-            letter-spacing: 0.175rem;
-            padding-left:0.225rem;
-            line-height: 2.45rem;
-            padding-top: 0.175rem;
-            color: rgb(165, 164, 164);
-        }
-        p#fifth{
-            letter-spacing: 0.2rem;
-            line-height: 2.5rem;
-            color:rgb(255, 255, 255);
-        }
-*/
+
 function WorldGrid({data, tick}: WorldGridProps) {
     //let numberOfIndex = 5;
     //let numLines = 7;
@@ -49,6 +16,7 @@ function WorldGrid({data, tick}: WorldGridProps) {
     /*function brightness(index: number) {
         return (index + 1) / (numberOfIndex + 1) * 255;
     }*/
+    
     return (
         <div className="world-grid"> 
         {data.map((x: Pixel[], index:number) => 
@@ -65,11 +33,18 @@ function WorldGrid({data, tick}: WorldGridProps) {
             >
                 {
                     x.map((pix)=> {pix.pickFrame(tick);return pix;}).map((pix) => (
-                        (pix.symbol === Pixel.NewLine.symbol)?
-                            <br/>
-                            :(pix.symbol === Pixel.Empty.symbol)?
-                                <>&nbsp;</>
-                            :<span style={{color: pix.color.toRGB()}}>{pix.symbol}</span>
+                        /*if*/(pix.symbol === Pixel.NewLine.symbol)?
+                            /*then*/<br/>
+                        /*elif*/:(pix.symbol === Pixel.Empty.symbol)?
+                            /*then*/<>&nbsp;</>
+                        /*elif*/:(pix.color.length === 1)?
+                            <span style={{color:(()=> {return pix.color.toRGB();})()}}>{pix.symbol}</span>
+                            :<span style={{
+                                color: ((color: Color): string => {
+                                    return color.getAtIndex(tick).toRGB();
+                                })(pix.color),
+                                transition: "color 1s"
+                            }}>{pix.symbol}</span>
                     ))
                 }
             </p>)

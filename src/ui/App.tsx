@@ -35,7 +35,6 @@ function App() {
   useEffect(() => {
     function incrementTick() {
       setTick(tick + 1);
-      console.log(tick);
     }
     const timer = setInterval(incrementTick, 500);
     return () => {
