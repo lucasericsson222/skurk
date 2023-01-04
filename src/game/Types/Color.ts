@@ -23,6 +23,7 @@ export class Color {
         this.b = b;
     }
 
+    // note I might remove the get, because these create new colors that can be modified
     static get White() {
         return new Color(255,255,255);
     }
@@ -38,6 +39,7 @@ export class Color {
     static get LightBlue() {
         return new Color(50, 119, 230);
     }
+    
     toRGB(): string {
         return `rgb(${this.r}, ${this.g}, ${this.b})`;
     }
