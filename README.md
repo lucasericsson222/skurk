@@ -9,6 +9,7 @@ Currently, the gameplay is undefined.
 In order to start the project, run the following statement in the main `skurk` folder.
 
 ```console
+npm install
 npm start
 ```
 
