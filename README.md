@@ -18,22 +18,17 @@ The entrance point of the program is the `index.tsx` file which immediately forw
 `app.tsx` calls the `Main.ts` function in the game folder, and that connects the ui to the game logic.
 Game logic then calls `updateUI` after each turn. Each turn is always triggered by a button press.
 
-If we want to add animations, then they should probably done in the ui side with some sort of flag to let the ui know,
-so that the data in the classes can define one. (We might want something that does water wave animation, or changing colors)
-
-Colors should be implemented in a similar way, the symbol will have a tag that can be interpreted and turned into
-
-```html
-<span styles="color: red;">{SYMBOL}</span>
-```
-
 ## Notes
 
 * `react-app-env.d.ts` is in the correct place, it gives the project access to all the types that react uses (for use with Typescript) do not move.
 
 ## Here is a current Todo list
 
-* Connect World Data to WorldGrid UI
 * Add Monster Class
 * Add Tree Class
-* Add Keyboard Input
+* Add Symbol Animations
+* Add Viewport
+* Add Collisions
+* Add Priority
+  * Priority is defined as allowing some object not to be displayed at all when the player or other creatures step on them.
+* Add Random Rooms
