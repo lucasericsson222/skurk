@@ -7,6 +7,7 @@ type Gradient = Color[];
 
 export abstract class Entity {
     private position: Vector= new Vector(0,0);
+    tags: string[] = [];
     setPosition(x: number, y: number) {
         this.position.x = x;
         this.position.y = y;

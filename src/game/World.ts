@@ -90,8 +90,17 @@ export class World {
         
         return output;
     }
+    isCollision(x: number, y: number): boolean {
+        let output = false;
+        for(let i of this.data[x][y]) {
+            if(i.tags.includes("collidable")) {
+                output = true;
+            }
+        }
+        return output;
+    }
     addEntity(obj: Entity, x:number, y:number): boolean {
-        if (!this.inBounds(x,y)) {
+        if(!this.inBounds(x,y)) {
             return false;
         }
         if(obj instanceof ActiveEntity) {
@@ -120,6 +129,9 @@ export class World {
     moveEntity(obj: Entity, x:number, y:number): boolean{
         // note no error checking for whether the entity could be added at the location
         if (!this.inBounds(x, y)) {
+            return false;
+        }
+        if (this.isCollision(x,y)) {
             return false;
         }
         this.removeEntity(obj);
