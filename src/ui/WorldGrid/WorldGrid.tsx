@@ -2,7 +2,6 @@ import { Pixel } from "../../game/Types/Pixel";
 import PixelUI from "./PixelUI";
 import styled from "styled-components";
 
-
 //#region PixelLocation
 
 interface PixelLocationProps {

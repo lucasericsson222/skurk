@@ -1,11 +1,12 @@
 // this file should remain at the top level of game, as it is the entry point
 // other includes may be moved though
-import { World } from "./World";
+import { World, WORLDSIZE } from "./World";
 import { Player } from "./Entity/ActiveEntity/ActiveEntities/Player";
 import { Vector } from "./Types/Vector";
 import { Pixel } from "./Types/Pixel";
 import { Wall } from "./Entity/Entities/Wall";
-import { Water } from "./Entity/Entities/Water";
+import { Knight } from "./Entity/ActiveEntity/ActiveEntities/Monster/Monsters/Knight";
+
 export interface updateUIData {
     worldData: Pixel[][][];
 }
@@ -18,23 +19,20 @@ export function Main(updateUI: (data: updateUIData) => void): (e: globalThis.Key
     // set up game
     let gameWorld = new World();
     let gamePlayer = new Player();
-    gameWorld.addEntity(gamePlayer, 1, 1);
-    gameWorld.addEntity(new Wall(), 2,2);
-    gameWorld.addEntity(new Wall(), 2,3);
-    gameWorld.addEntity(new Wall(), 2,4);
-    gameWorld.addEntity(new Wall(), 2,5);
-    gameWorld.addEntity(new Wall(), 2,6);
-    gameWorld.addEntity(new Wall(), 3,6);
-    for(let i = 4; i < 8; i++) {
-        for(let j = 0; j < 4; j++ ) {
-            gameWorld.addEntity(new Water(), i, j);
-        }
-    }
-    updateUI({worldData: gameWorld.toStringArray()});
+    gameWorld.addEntity(gamePlayer, 1,1);
+    gameWorld.addEntityLine(Wall, new Vector(0,0), new Vector(0, WORLDSIZE.M - 1));
+    gameWorld.addEntityLine(Wall, new Vector(1,0), new Vector(WORLDSIZE.N - 1,0));
+    gameWorld.addEntityLine(Wall, new Vector(1,WORLDSIZE.M - 1), new Vector(WORLDSIZE.N - 1, WORLDSIZE.M -1));
+    gameWorld.addEntityLine(Wall, new Vector(WORLDSIZE.N - 1, 1), new Vector(WORLDSIZE.N - 1, WORLDSIZE.M - 2));
+    gameWorld.addEntity(new Knight(), 5, 3);
+
+    updateUI({worldData: gameWorld.toStringArray(gamePlayer)});
     return (e: globalThis.KeyboardEvent) => {
         let dir = inputToVector(e);
         gameWorld.moveEntityR(gamePlayer, dir.x, dir.y);
-        updateUI({worldData: gameWorld.toStringArray()});
+        gameWorld.RunActions();
+        updateUI({worldData: gameWorld.toStringArray(gamePlayer)});
+
     }; 
 }
 

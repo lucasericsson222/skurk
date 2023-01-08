@@ -27,6 +27,9 @@ export class Color {
     static get White() {
         return new Color(255,255,255);
     }
+    static get Grey() {
+        return new Color(100, 100, 100);
+    }
     static get Red() {
         return new Color(255, 0, 0);
     }
@@ -39,7 +42,9 @@ export class Color {
     static get LightBlue() {
         return new Color(50, 119, 230);
     }
-    
+    static get Green() {
+        return new Color(0,255, 0);
+    }
     toRGB(): string {
         return `rgb(${this.r}, ${this.g}, ${this.b})`;
     }

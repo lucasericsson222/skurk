@@ -1,6 +1,7 @@
 import { Vector } from "../Types/Vector";
 import { Color } from "../Types/Color";
 import { Pixel } from "../Types/Pixel";
+import { World } from "../World";
 
 type Gradient = Color[];
 
@@ -22,9 +23,9 @@ export abstract class Entity {
 }
 export class Empty extends Entity {
     display(): Pixel[] {
-        return [new Pixel(".",Color.White)];
+        return [new Pixel(".",Color.Grey)];
     }
 }
 export abstract class ActiveEntity extends Entity {
-    abstract action(): void;
+    abstract action(gameWorld: World): void;
 }

@@ -6,6 +6,6 @@ export class Player extends ActiveEntity {
 
     }
     display(): Pixel[]{
-        return [new Pixel("@" ,Color.Red)];
+        return [new Pixel("@" ,Color.Green)];
     }
 }
